@@ -40,3 +40,22 @@
     rails g devise User
     ```
 
+7. Agregar bootstrap al proyecto mediante CDN en `application.html.erb`
+
+8. Agregamos un partial de navbar en `application.html.erb`
+
+    ```erb
+    <%= render 'shared/navbar' %>
+    ```
+
+9. Agregamos un controlador de home
+
+    ```bash
+    rails g controller home index
+    ```
+
+10. Agregamos una ruta para el home en `routes.rb`
+
+    ```ruby
+    root 'home#index'
+    ```
