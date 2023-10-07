@@ -108,3 +108,27 @@
 
 18. Editamos el post controller para que asocie el usuario con el post.
 
+19. Editamos before action de post controller para permitir acceso a usuarios no registrados solo en index y show.
+
+    ```ruby
+    before_action :authenticate_user!, except: [:index, :show]
+    ```
+
+20. Editamos la vista show del post tal que solo el usuario que creó el post pueda editarlo o eliminarlo.
+
+    ```erb
+    <% if user_signed_in? && current_user.id == @post.user_id %>
+      <div class="d-flex justify-content-between">
+        <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-primary" %>
+        <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+      </div>
+    <% end %>
+    ```
+
+21. Al ingresar, el usuario es redirigido a la página de posts. Editando application_controller.rb
+
+    ```ruby
+    def after_sign_in_path_for(resource)
+      posts_path
+    end
+    ```
