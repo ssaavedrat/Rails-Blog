@@ -67,3 +67,44 @@
     ```
 
 12. Condicionales en navbar para mostrar inicio de sesión registro o nombre de usuario con sesión iniciada.
+
+13. Creamos el modelo de Post con scaffold
+
+    ```bash
+    rails g scaffold Post image title description:text
+    ```
+
+14. Agregamos migración para referenciar posts con usuarios
+
+    ```bash
+    rails g migration AddUserToPosts user:references
+    ```
+
+15. Creamos un Post de ejemplo en Rails console
+
+    ```ruby
+    Post.create!(image:"https://img.freepik.com/foto-gratis/gato-rojo-o-blanco-i-estudio-blanco_155003-13189.jpg?w=2000", title: "En la mente de un gato", description: "Es un libro que explica de forma simple lo que realmente se sabe de los gatos y lo mucho que falta por entender. Es un libro que todo aquel que tenga o quiera tener un gato encontrará útil.", user_id: User.last.id)
+    ```
+
+16. Agregamos la restricción "before action" en el controlador de posts para que solo los usuarios registrados puedan ver los posts.
+
+    ```ruby
+    before_action :authenticate_user!
+    ```
+
+17. Relacionamos los modelos de User y Post
+
+    ```ruby
+    class User < ApplicationRecord
+      has_many :posts
+    end
+    ```
+
+    ```ruby
+    class Post < ApplicationRecord
+      belongs_to :user
+    end
+    ```
+
+18. Editamos el post controller para que asocie el usuario con el post.
+
