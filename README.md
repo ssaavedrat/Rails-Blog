@@ -132,3 +132,4 @@
       posts_path
     end
     ```
+22. Agregamos navegación adicional al navbar.
