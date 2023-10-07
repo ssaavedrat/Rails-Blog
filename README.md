@@ -59,3 +59,11 @@
     ```ruby
     root 'home#index'
     ```
+
+11. Configuramos initializers/devise.rb para usar turbo_stream
+
+    ```ruby
+    config.navigational_formats = ['*/*', :html, :turbo_stream]
+    ```
+
+12. Condicionales en navbar para mostrar inicio de sesión registro o nombre de usuario con sesión iniciada.
