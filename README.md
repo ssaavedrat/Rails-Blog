@@ -160,3 +160,28 @@ Esta sección supone editar las vistas de devise, que hasta ahora están ocultas
     ```bash
         rails g devise:views
     ```
+
+2. Agregamos migración: Nuevos campos para usuario.
+
+    ```bash
+    rails g migration AddDetailsToUsers phone name age 
+    ```
+
+3. Agregamos los campos phone, name y age a las vistas new y edit.
+
+    ```erb
+        <div class="field">
+        <%= f.label :name %> <br>
+        <%= f.text_field :name, autocomplete: "new-name" %>
+        </div>
+        <div class="field">
+        <%= f.label :phone %> <br>
+        <%= f.text_field :phone, autocomplete: "new-phone" %>
+        </div>
+        <div class="field">
+        <%= f.label :age %> <br>
+        <%= f.text_field :age, autocomplete: "new-age" %>
+        </div>
+    ```
+
+

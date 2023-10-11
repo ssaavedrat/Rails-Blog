@@ -10,6 +10,9 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  phone                  :string
+#  name                   :string
+#  age                    :string
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
