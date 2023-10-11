@@ -1,4 +1,6 @@
-# README
+# Blog en Rails con Devise
+
+Este proyecto de blog en Rails permite crear, editar y ver posts. Además, utiliza la gema Devise para gestionar la autenticación de usuarios. Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
 
 ## Pasos
 
@@ -153,7 +155,7 @@
 
 ### Editando las vistas de Devise
 
-#### Esta sección supone editar las vistas de devise, que hasta ahora están ocultas.
+#### Esta sección supone editar las vistas de devise, que hasta ahora están ocultas
 
 1. Importar vistas de devise.
 
@@ -216,7 +218,7 @@
         def configure_account_update_params
         devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :age])
         end
-    ``` 
+    ```
 
 4. Modificamos el application_controller para que permita los nuevos campos, en caso de usar el controlador de usuarios.
 
@@ -228,3 +230,15 @@
         devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :age])
         end
     ```
+
+5. Agregamos en el navbar; si el usuario tiene nombre, lo muestra, sino muestra el email.
+
+    ```erb
+            <% if current_user.name %>
+                Hola <%= current_user.name %>
+              <% else %>
+                Hola <%= current_user.email %>
+              <% end %>
+    ```
+
+6. Agregamos estilos con Bootstrap.
