@@ -153,7 +153,7 @@
 
 ### Editando las vistas de Devise
 
-Esta sección supone editar las vistas de devise, que hasta ahora están ocultas.
+#### Esta sección supone editar las vistas de devise, que hasta ahora están ocultas.
 
 1. Importar vistas de devise.
 
@@ -185,3 +185,46 @@ Esta sección supone editar las vistas de devise, que hasta ahora están ocultas
     ```
 
 
+#### Debemos agregar estos nuevos campos a los strong params de devise. Para ello en primer lugar debemos generar el controlador de usuarios.}
+
+1. Generamos el controlador de usuarios.
+
+    ```bash
+        rails g devise:controllers users
+    ```
+
+2. Como recomienda el comando anterior agregamos en routes.rb
+
+    ```ruby
+        devise_for :users, controllers: {
+        sessions: 'users/sessions'
+        }
+    ```
+
+3. Editamos el registrations_controller recién creado, descomentando before action y agregando los campos que queremos permitir.
+
+    ```ruby
+        before_action :configure_sign_up_params, only: [:create]
+        before_action :configure_account_update_params, only: [:update]
+
+        protected
+
+        def configure_sign_up_params
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :age])
+        end
+
+        def configure_account_update_params
+        devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :age])
+        end
+    ``` 
+
+4. Modificamos el application_controller para que permita los nuevos campos, en caso de usar el controlador de usuarios.
+
+    ```ruby
+        before_action :configure_permitted_parameters, if: :devise_controller?
+
+        def configure_permitted_parameters
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :age])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone, :age])
+        end
+    ```
