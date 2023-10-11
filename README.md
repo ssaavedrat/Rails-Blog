@@ -2,6 +2,8 @@
 
 ## Pasos
 
+### Creación del Blog
+
 1. Crear un proyecto en rails con el nombre 'Blog', con postgresql
 
     ```bash
@@ -132,4 +134,29 @@
       posts_path
     end
     ```
+
 22. Agregamos navegación adicional al navbar.
+
+23. Agregamos algunos cambios al controlador de post para asociar el usuario con el post al crearlo y actualizarlo, mediante el método current_user. Además limitamos la edición.
+
+    ```ruby
+    @post = current_user.posts.build(post_params)
+    ```
+
+    ```ruby
+    def edit
+      unless current_user == @post.user
+        redirect_to post_url(@post), notice: "You are not authorized to edit this post."
+      end
+    end
+    ```
+
+### Editando las vistas de Devise
+
+Esta sección supone editar las vistas de devise, que hasta ahora están ocultas.
+
+1. Importar vistas de devise.
+
+    ```bash
+        rails g devise:views
+    ```

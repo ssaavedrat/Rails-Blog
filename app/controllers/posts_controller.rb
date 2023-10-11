@@ -13,17 +13,22 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = current_user.posts.build # associating the post with the current user
+    # @post = Post.new
   end
   
   # GET /posts/1/edit
   def edit
+    unless current_user == @post.user
+      redirect_to post_url(@post), notice: "You are not authorized to edit this post."
+    end
   end
   
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
-    @post.user = current_user
+    @post = current_user.posts.build(post_params) # associating the post with the current user
+    # @post = Post.new(post_params)
+    # @post.user = current_user
 
     respond_to do |format|
       if @post.save
